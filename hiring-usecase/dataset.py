@@ -1,5 +1,8 @@
 """
 The createDatabase function is able to generate a database of candidates.
+The variables in this database are specific for the hiring use case.
+
+returns a pandas dataFrame
 """
 # install guide
 # sudo pip3 install names
@@ -49,9 +52,8 @@ def createRating(candidates):
     return ratings
 
 # Create list of random education
-# 0 = highschool, 1 = bachelor and 2 = master
 def createEdu(candidates):
-    education_types = [0,1,2]
+    education_types = [0,1,2] # 0 = highschool, 1 = bachelor and 2 = master
     education = []
     while len(education) != candidates:
         education.append(random.choice(education_types))
@@ -65,30 +67,24 @@ def createWork(candidates):
     return workyears
 
 # Create list of random levels in programming skill
-# 0 = low, 1 = moderate, 2 = advanced
 def createProgram(candidates):
-    programming_level = [0,1,2]
+    programming_level = [0,1,2] # 0 = low, 1 = moderate, 2 = advanced
     programming = []
     while len(programming) != candidates:
         programming.append(random.choice(programming_level))
     return programming
 
 # Create column indicating if the candidate (row) is hired or not, according
-# to the main inference
-# 0 = hired, 1 = not hired
+# to the main inference.
 def hiring(data):
     hiring = []
     for index, row in data.iterrows():
-        rating = row.biorating
-        education = row.education
-        workyears = row.workyears
-        programming = row.programming
         # Main infererence
-        if (rating > 5 and education != 0 and workyears >=3 and
-        programming != 0):
-            hiring.append(0)
+        if (row.biorating > 5 and row.education != 0 and row.workyears > 2 and
+        row.programming != 0):
+            hiring.append(0) # 0 = hired
         else:
-            hiring.append(1)
+            hiring.append(1) # 1 = not hired
     return hiring
 
 # Generate database

@@ -36,15 +36,15 @@ programming(becky, advanced).
 
 % core inference for hired candidate
 hired(Candidate) :- candidate(Candidate), education(Candidate),
-experience(Candidate), not -motivation(Candidate), not -skilled(Candidate).
+experience(Candidate), motivation(Candidate), not -skilled(Candidate).
 
 % default rule for not hired candidate
 -hired(Candidate) :- candidate(Candidate), not hired(Candidate).
 
 education(Candidate) :- master(Candidate).
 education(Candidate) :- bachelor(Candidate).
-experience(Candidate) :- workyears(Candidate, X), X >= 3.
--motivation(Candidate) :- biorating(Candidate, X), X <= 5. % low motivation
+experience(Candidate) :- workyears(Candidate, X), X > 2.
+motivation(Candidate) :- biorating(Candidate, X), X > 5. % good motivation
 -skilled(Candidate) :- programming(Candidate, low). % not enough experience
 
 % Show who is hired
