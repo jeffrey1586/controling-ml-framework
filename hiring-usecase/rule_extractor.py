@@ -103,12 +103,29 @@ def sumRules(all_nodes):
             rule_dict[current] = ""
     if rule_dict[current] == "":
         del rule_dict[current]
-    # print(rule_dict)
+    # print(rule_dict) #show all nodes
     return rule_dict
 
 # Iterate through the dictionary and extract the rules used for the inference
-def selectRules(all_nodes):
+def selectRules(all_nodes, model):
     rule_dict = sumRules(all_nodes)
+    inference_rules = {0:""}
+    node = 0
+    """
+    use --> node_paths = model.tree_.children_left
+    all the positive numbers are rule nodes. So append them to the correct rule
+    in inference_rules --> make dict
+    """
+    # for key in rule_dict:
+    #     if rule_dict[key] == " class: 1":
+    #         if key+1 in rule_dict:
+    #             inference_rules[node] = rule_dict[key+1]
+    #     elif rule_dict[key] == " class: 0":
+    #         if key != 1:
+    #             if rule_dict[key] not in inference_rules:
+    #                 inference_rules[node] = rule_dict[key-1]
+    #     node += 1
+    # print("hired if: ", inference_rules) #show inference rules
     inference_rules = []
     for key in rule_dict:
         if rule_dict[key] == " class: 1":
@@ -118,7 +135,7 @@ def selectRules(all_nodes):
             if key != 1:
                 if rule_dict[key-1] not in inference_rules:
                     inference_rules.append(rule_dict[key-1])
-    # print(inference_rules)
+    print("hired if: ", inference_rules) #show inference rules
     return
 
 # Parsing extracted rules to ASP program
@@ -129,6 +146,6 @@ def ruleParser(rules):
 def extractRules(model, X):
     print_tree_recurse(model, X, 0, 1)
     all_nodes = export_text.report
-    rules = selectRules(all_nodes)
+    rules = selectRules(all_nodes, model)
     ruleParser(rules)
     return

@@ -17,7 +17,7 @@ def createDT(men, female):
     data = createDataset(men,female) #arg1= nmr_male and arg2 = nmr_female
     X = data.loc[:, 'gender':'programming']
     y = data.loc[:, 'hire']
-    # print(data,"\n")
+    # print(data,"\n") #show row(s) of all candidates
     # print(data.loc[data['hire'] == 0]) #show which row(s) are hired candidates
 
     # Create decision tree classifer
@@ -35,6 +35,7 @@ def createDT(men, female):
     graph = pydotplus.graph_from_dot_data(dot_data)
 
     # Create PNG and save in current folder
-    # Image(graph.create_png())
     graph.write_png("decision_tree.png")
-    return model, X, data
+    # Image(graph.create_png())
+
+    return model, X, X_train, data

@@ -16,3 +16,14 @@ gender(brock, male).
 
 age(nicole, 22).
 gender(nicole, female).
+
+ % each sampled answer set represents exactly one random person
+1{thePerson(zack); thePerson(cody); thePerson(sarah); thePerson(brock); thePerson(nicole)}1.
+
+thePersonIsAdultFemale :- thePerson(X), gender(X, female), adult(X).
+
+thePersonIsAdultMale :- thePerson(X), gender(X, male), adult(X).
+
+_eval_("f(thePersonIsAdultFemale)", "?").
+
+_eval_("f(thePersonIsAdultMale)", "?").

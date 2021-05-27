@@ -1,0 +1,70 @@
+asp 1 0 0
+1 0 1 1 0 0
+1 0 1 2 0 0
+1 0 1 3 0 0
+1 0 1 4 0 0
+1 0 1 5 0 0
+1 0 1 6 0 0
+1 0 1 7 0 0
+1 0 1 8 0 0
+1 0 1 9 0 0
+1 0 1 10 0 0
+1 0 1 11 0 0
+1 0 1 12 0 0
+1 0 1 13 0 0
+1 0 1 14 0 0
+1 0 1 15 0 0
+1 0 1 16 0 0
+1 0 1 20 0 1 21
+1 0 0 0 1 -24
+1 0 1 26 0 1 24
+1 0 0 0 2 22 18
+1 0 0 0 2 22 23
+1 0 0 0 2 22 19
+1 0 0 0 2 22 21
+1 0 0 0 2 18 23
+1 0 0 0 2 18 19
+1 0 0 0 2 18 21
+1 0 0 0 2 23 19
+1 0 0 0 2 23 21
+1 0 0 0 2 19 21
+1 0 1 22 0 1 -27
+1 0 1 24 0 1 -27
+1 0 1 27 0 1 -22
+1 0 1 17 0 1 -28
+1 0 1 18 0 1 -28
+1 0 1 24 0 1 -28
+1 0 1 28 0 1 -18
+1 0 1 23 0 1 -29
+1 0 1 24 0 1 -29
+1 0 1 29 0 1 -23
+1 0 1 17 0 1 -30
+1 0 1 19 0 1 -30
+1 0 1 24 0 1 -30
+1 0 1 30 0 1 -19
+1 0 1 21 0 1 -31
+1 0 1 24 0 1 -31
+1 0 1 31 0 1 -21
+4 12 age(zack,11) 0
+4 12 age(cody,18) 0
+4 12 age(sarah,5) 0
+4 13 age(brock,32) 0
+4 14 age(nicole,22) 0
+4 11 adult(cody) 0
+4 12 adult(brock) 0
+4 13 adult(nicole) 0
+4 17 gender(zack,male) 0
+4 17 gender(cody,male) 0
+4 20 gender(sarah,female) 0
+4 18 gender(brock,male) 0
+4 21 gender(nicole,female) 0
+4 39 _eval_("f(thePersonIsAdultFemale)","?") 0
+4 37 _eval_("f(thePersonIsAdultMale)","?") 0
+4 20 thePersonIsAdultMale 1 17
+4 15 thePerson(cody) 1 18
+4 16 thePerson(brock) 1 19
+4 22 thePersonIsAdultFemale 1 20
+4 17 thePerson(nicole) 1 21
+4 15 thePerson(zack) 1 22
+4 16 thePerson(sarah) 1 23
+0

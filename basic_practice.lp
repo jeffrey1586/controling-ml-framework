@@ -38,7 +38,6 @@ education(Candidate) :- bachelor(Candidate).
 
 % In this case you don't know how male and female are associate to exp2 and exp3
 % e.g. at aggregate level:
-
 hired :- exp3.
 exp3 :- exp2, age > 40.
 male = female : ?hired.
