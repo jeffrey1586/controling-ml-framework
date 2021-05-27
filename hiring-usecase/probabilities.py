@@ -83,8 +83,8 @@ def getProbabilities(model, X, X_train, data):
         elif row.gender == 1: #female
             female_dict = insert2Dict(array_paths[row.name], female_dict, row)
     prob_male, prob_female = setProbabilities(male_dict, female_dict, model)
-    print("male", male_dict)
-    print("female", female_dict)
-    print("prob male:", prob_male)
-    print("prob female:", prob_female)
+    # print("male", male_dict)
+    # print("female", female_dict)
+    # print("prob male:", prob_male)
+    # print("prob female:", prob_female)
     return prob_male, prob_female #probabilities
