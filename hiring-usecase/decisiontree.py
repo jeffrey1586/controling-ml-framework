@@ -11,6 +11,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.tree import export_graphviz
 from dataset import createDataset
 import pydotplus
+from datetime import datetime
 
 def createDT(men, female):
     # Load data
@@ -35,7 +36,7 @@ def createDT(men, female):
     graph = pydotplus.graph_from_dot_data(dot_data)
 
     # Create PNG and save in current folder
-    graph.write_png("decision_tree.png")
-    # Image(graph.create_png())
+    timestamp = datetime.now().strftime("%H:%M:%S")
+    graph.write_png(timestamp + "decision_tree.png")
 
-    return model, X, X_train, data
+    return model, X, X_train, data, dot_data

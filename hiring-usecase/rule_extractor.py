@@ -16,16 +16,11 @@ from sklearn.tree import _tree
 from dataset import createDataset
 import numpy as np
 
-# Default
-max_depth = 10
-decimals = 2
-export_text.report = ""
-right_child_fmt = "{} {} <= {}\n"
-left_child_fmt = "{} {} >  {}\n"
-truncation_fmt = "{} {}\n"
-show_weights = False
+export_text.report = "" # Default
 
 def _add_leaf(model, value_fmt, value, class_name, indent):
+    decimals = 2 # Default
+    show_weights = False # Default
     val = ''
     is_classification = isinstance(model, DecisionTreeClassifier)
     if show_weights or not is_classification:
@@ -36,6 +31,12 @@ def _add_leaf(model, value_fmt, value, class_name, indent):
     export_text.report += value_fmt.format(indent, '', val)
 
 def print_tree_recurse(model, X, node, depth):
+    decimals = 2 # Default
+    max_depth = 10 # Default
+    right_child_fmt = "{} {} <= {}\n" # Default
+    left_child_fmt = "{} {} >  {}\n" # Default
+    truncation_fmt = "{} {}\n" # Default
+    show_weights = False # Default
     if isinstance(model, DecisionTreeClassifier):
         value_fmt = "{}{} weights: {}\n"
         if not show_weights:
@@ -103,14 +104,27 @@ def sumRules(all_nodes):
             rule_dict[current] = ""
     if rule_dict[current] == "":
         del rule_dict[current]
-    # print(rule_dict) #show all nodes
+    # print("All nodes: ",rule_dict) #show all nodes untransformed
     return rule_dict
 
-# Iterate through the dictionary and extract the rules used for the inference
-def selectRules(all_nodes, model):
+# transform the rule expression according to the inference path
+def transRules(all_nodes, model, dot_data):
     rule_dict = sumRules(all_nodes)
-    inference_rules = {0:""}
+    for key, value in list(rule_dict.items()):
+        if ">" in value:
+            del rule_dict[key]
     node = 0
+    for key in list(rule_dict.keys()):
+        rule_dict[node] = rule_dict.pop(key)
+        node += 1
+    for key, value in list(rule_dict.items()):
+        if key+1 in rule_dict and rule_dict[key+1] == ' class: 1':
+            rule_dict[key] = value.replace('<=', '>')
+    # print('Rules per node: ', rule_dict) #show all nodes transformed
+    return rule_dict
+
+# Parsing extracted rules to ASP program
+def ruleParser(rules):
     """
     use --> node_paths = model.tree_.children_left
     all the positive numbers are rule nodes. So append them to the correct rule
@@ -126,26 +140,30 @@ def selectRules(all_nodes, model):
     #                 inference_rules[node] = rule_dict[key-1]
     #     node += 1
     # print("hired if: ", inference_rules) #show inference rules
-    inference_rules = []
-    for key in rule_dict:
-        if rule_dict[key] == " class: 1":
-            if key+1 in rule_dict:
-                inference_rules.append(rule_dict[key+1])
-        elif rule_dict[key] == " class: 0":
-            if key != 1:
-                if rule_dict[key-1] not in inference_rules:
-                    inference_rules.append(rule_dict[key-1])
-    print("hired if: ", inference_rules) #show inference rules
-    return
+    # inference_rules = []
+    # for key in rule_dict:
+    #     if rule_dict[key] == " class: 1":
+    #         if key+1 in rule_dict:
+    #             inference_rules.append(rule_dict[key+1])
+    #     elif rule_dict[key] == " class: 0":
+    #         if key != 1:
+    #             if rule_dict[key-1] not in inference_rules:
+    #                 inference_rules.append(rule_dict[key-1])
+    # print("hired if: ", inference_rules) #show inference rules
 
-# Parsing extracted rules to ASP program
-def ruleParser(rules):
+    # node_path = model.tree_.children_left
+    inference_rules = {0:""}
+
+    # return complete_nodes
+    # if class in node:
+    #     del node
+    # return inference_nodes
     return
 
 # Extract the rules from the DT/model
-def extractRules(model, X):
+def extractRules(model, X, dot_data):
     print_tree_recurse(model, X, 0, 1)
     all_nodes = export_text.report
-    rules = selectRules(all_nodes, model)
-    ruleParser(rules)
+    node_rules = transRules(all_nodes, model, dot_data)
+    ruleParser(node_rules)
     return
