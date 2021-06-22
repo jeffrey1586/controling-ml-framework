@@ -9,6 +9,7 @@ to parse it to an asp program.
 
 returns all rules in DT as report format (String)
 """
+
 from sklearn import tree
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.tree import export_text
@@ -123,47 +124,9 @@ def transRules(all_nodes, model, dot_data):
     # print('Rules per node: ', rule_dict) #show all nodes transformed
     return rule_dict
 
-# Parsing extracted rules to ASP program
-def ruleParser(rules):
-    """
-    use --> node_paths = model.tree_.children_left
-    all the positive numbers are rule nodes. So append them to the correct rule
-    in inference_rules --> make dict
-    """
-    # for key in rule_dict:
-    #     if rule_dict[key] == " class: 1":
-    #         if key+1 in rule_dict:
-    #             inference_rules[node] = rule_dict[key+1]
-    #     elif rule_dict[key] == " class: 0":
-    #         if key != 1:
-    #             if rule_dict[key] not in inference_rules:
-    #                 inference_rules[node] = rule_dict[key-1]
-    #     node += 1
-    # print("hired if: ", inference_rules) #show inference rules
-    # inference_rules = []
-    # for key in rule_dict:
-    #     if rule_dict[key] == " class: 1":
-    #         if key+1 in rule_dict:
-    #             inference_rules.append(rule_dict[key+1])
-    #     elif rule_dict[key] == " class: 0":
-    #         if key != 1:
-    #             if rule_dict[key-1] not in inference_rules:
-    #                 inference_rules.append(rule_dict[key-1])
-    # print("hired if: ", inference_rules) #show inference rules
-
-    # node_path = model.tree_.children_left
-    inference_rules = {0:""}
-
-    # return complete_nodes
-    # if class in node:
-    #     del node
-    # return inference_nodes
-    return
-
 # Extract the rules from the DT/model
 def extractRules(model, X, dot_data):
     print_tree_recurse(model, X, 0, 1)
     all_nodes = export_text.report
     node_rules = transRules(all_nodes, model, dot_data)
-    ruleParser(node_rules)
-    return
+    return node_rules

@@ -38,12 +38,10 @@ def calcProbabilities(sum_dict, male_dict, female_dict, model):
     prob_male = {0:0}
     prob_female = {0:0}
     paths = model.tree_.children_left
-    print(paths)
-    print(sum_dict)
     for key in sum_dict:
         if key == 0:
             continue
-        elif paths[key] != -1 and paths[key-1] == -1 and paths[key-2] == -1:
+        elif paths[key-1] == -1 and paths[key-2] == -1:
             prob_male, prob_female = probCalculator(sum_dict, male_dict,
                                                     female_dict, prob_male,
                                                     prob_female, key, key)
@@ -68,8 +66,9 @@ def calcProbabilities(sum_dict, male_dict, female_dict, model):
 #
 def setProbabilities(male_dict, female_dict, model):
     sum_dict = sumDict(male_dict, female_dict)
-    probabilities = calcProbabilities(sum_dict, male_dict, female_dict, model)
-    return probabilities
+    prob_male, prob_female = calcProbabilities(sum_dict, male_dict,
+                                               female_dict, model)
+    return prob_male, prob_female
 
 #
 def getProbabilities(model, X, X_train, data):
@@ -83,8 +82,8 @@ def getProbabilities(model, X, X_train, data):
         elif row.gender == 1: #female
             female_dict = insert2Dict(array_paths[row.name], female_dict, row)
     prob_male, prob_female = setProbabilities(male_dict, female_dict, model)
-    # print("male", male_dict)
-    # print("female", female_dict)
-    # print("prob male:", prob_male)
-    # print("prob female:", prob_female)
+    print("male", male_dict)
+    print("female", female_dict)
+    print("prob_male", prob_male)
+    print("prob_female", prob_female)
     return prob_male, prob_female #probabilities

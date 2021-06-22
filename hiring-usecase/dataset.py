@@ -80,7 +80,7 @@ def hiring(data):
     hiring = []
     for index, row in data.iterrows():
         # Main infererence
-        if (row.biorating > 5 and row.education != 0 and row.workyears > 2 and
+        if (row.motivation > 5 and row.education != 0 and row.workyears > 2 and
         row.programming != 0):
             hiring.append(0) # 0 = hired
         else:
@@ -92,7 +92,7 @@ def createDataset(nmr_male,nmr_female):
     names = createNames(nmr_male,nmr_female)
     data = pd.DataFrame(names, columns=['name'])
     data['gender'] = createGender(nmr_male,nmr_female)
-    data['biorating'] = createRating(len(names))
+    data['motivation'] = createRating(len(names))
     data['education'] = createEdu(len(names))
     data['workyears'] = createWork(len(names))
     data['programming'] = createProgram(len(names))

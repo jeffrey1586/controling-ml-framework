@@ -1,6 +1,5 @@
 adult(Person) :- age(Person, X), X > 17.
 
-
 % instance
 %student(jack).
 %student(anna).
@@ -35,6 +34,16 @@ rating(Candidate) :- biorating(Candidate, X), X > 5.
 experience(Candidate) :- programming(Candidate, high).
 education(Candidate) :- master(Candidate).
 education(Candidate) :- bachelor(Candidate).
+
+Rules: {0: ' workyears > 4.50', 1: ' class: 1',
+2: ' motivation > 5.50', 3: ' class: 1',
+4: ' workyears <= 8.50', 5: ' class: 0', 6: ' class: 1'}
+prob_male {0: 0, 1: 0.5066666666666667, 2: 0.08, 3: 0.4166666666666667, 4: 0.08333333333333333, 6: 0.3333333333333333}
+prob_female {0: 0, 1: 0.3333333333333333, 2: 0.08, 3: 0.3333333333333333, 4: 0.16666666666666666, 5: 0.6666666666666666}
+
+% Output answer
+% hired_female:   0.05
+%  hired_male:   0.24
 
 % In this case you don't know how male and female are associate to exp2 and exp3
 % e.g. at aggregate level:
