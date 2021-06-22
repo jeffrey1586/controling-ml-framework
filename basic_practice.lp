@@ -1,5 +1,6 @@
 adult(Person) :- age(Person, X), X > 17.
 
+
 % instance
 %student(jack).
 %student(anna).
